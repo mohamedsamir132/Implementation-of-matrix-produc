@@ -1,0 +1,73 @@
+#When expressed in NumPy, it becomes as follows
+import numpy as np
+a_ndarray = np.array([[-1, 2, 3], [4, -5, 6], [7, 8, -9]])
+b_ndarray = np.array([[0, 2, 1], [0, 2, -8], [2, 9, -1]])
+
+[Problem 1] Matrix product is calculated manually
+
+
+#The product of 2 matrices is calculated by multiplying the rows of the first one from left to right with each column of the second matrix from top to bottom.
+
+#The calculation process of A x B is as follows
+
+A = [[-1, 2, 3], [4, -5, 6], [7, 8, -9]] 
+B = [[0, 2, 1], [0, 2, -8], [2, 9, -1]]
+
+A0xB0: -10 + 20 +32 = 6
+A0xB1:-12 + 22 +39 = 29
+A0xB2:-11 + 2-8 +3-1 = -20
+A1xB0: 40 - 50 +62 = 12
+A1xB1: 42 - 52 +69 = 52
+A1xB2: 41 - 5-8 +6-1 = 38
+A2xB0: 70 + 80 -92 = -18
+A2xB1: 72 + 82 -99 = -51
+A2xB2: 71 + 8-8 -9*-1 = -48
+
+AxB = [[6, 29, -20], [12, 52, 38], [-18, -52, -48]]
+     
+
+[Problem 2] Calculation by NumPy function
+
+import  numpy  as np
+a_ndarray = np.array([[-1, 2, 3], [4, -5, 6], [7, 8, -9]])
+b_ndarray = np.array([[0, 2, 1], [0, 2, -8], [2, 9, -1]])
+np.matmul(a_ndarray,b_ndarray)
+     
+
+[Problem 3] Implementation of calculation of a certain element
+
+
+print(f'The calculation of 0th row of matrix A and the 0th column of matrix B is:',a_ndarray[0,0] * b_ndarray[0,0] + a_ndarray[0,1] *b_ndarray[1,0] + a_ndarray[0,2] *b_ndarray[2,0])
+
+[Problem 4] Creating a function that performs matrix multiplication
+
+def matrix_multiplication(matrix_A, matrix_B):
+    matrix = np.zeros(9)
+    product = matrix.reshape(3, 3)
+   
+    for x in range(len(matrix_A)):
+        for y in range(len(matrix_B[0])):
+            for z in range(len(matrix_B)):
+                product[x][y] += matrix_A[x][z] * matrix_B[z][y]
+    print(product)
+matrix_multiplication(a_ndarray, b_ndarray)
+     
+
+[Problem 5] Judge the input whose calculation is not defined
+
+d_ndarray = np.array([[-1, 2, 3], [4, -5, 6]])
+e_ndarray = np.array([[-9, 8, 7], [6, -5, 4]])
+     
+
+d_ndarray = np.array([[-1, 2, 3], [4, -5, 6]])
+e_ndarray = np.array([[-9, 8, 7], [6, -5, 4]])
+
+if d_ndarray.shape[0] == e_ndarray.shape[1]:
+    print(product_of_matrix(d_ndarray, e_ndarray))
+else:
+    print("not aligned!")
+     
+[Problem 6] Transposition
+
+print('The product of the matrix when transposing matrix a is: ')
+np.dot(a_ndarray.T,b_ndarray)
